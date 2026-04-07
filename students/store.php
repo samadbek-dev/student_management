@@ -10,7 +10,7 @@ $age=$_POST['age'];
 $phone=$_POST['phone'];
 $address=$_POST['address'];
 $class_name=$_POST['class_name'];
-$sql = "INSERT INTO students (full_name, age, phone, address, class_name)
+$sql = "INSERT INTO members (full_name, age, phone, adress, class_name)
 VALUES (?, ?, ?, ?, ?)";
 // SQL so'rovini tayyorlash
 $data = $conn-> prepare($sql);

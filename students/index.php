@@ -1,4 +1,17 @@
-```html
+<?php
+session_start();
+require "../config/db.php";
+
+if(!isset($_SESSION['user_id'])){
+    header("Location: ../auth/login.php");
+    exit();
+}
+//sql yozish
+$sql = "SELECT * FROM members ORDER BY id DESC";
+$data = $conn->prepare($sql);
+$data->execute();
+$students = $data->fetchALL();
+?>
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -83,38 +96,24 @@
         </tr>
     </thead>
     <tbody>
+            <?php foreach($students as $item): ?>
         <tr>
-            <td>1</td>
-            <td>Ali Valiyev</td>
-            <td>16</td>
-            <td>10-A</td>
-            <td>+998901234567</td>
-            <td>Toshkent</td>
-            <td>2026-04-02</td>
+            <td><?= $item['id'];?></td>
+            <td><?= $item['full_name'];?></td>
+            <td><?= $item['age'];?></td>
+            <td><?= $item['class_name'];?></td>
+            <td><?= $item['phone'];?></td>
+            <td><?= $item['adress'];?></td>
+            <td><?= date("d.M.Y", strtotime($item['created_at']));?></td>
             <td>
                 <button class="btn view">Ko‘rish</button>
                 <button class="btn edit">Tahrirlash</button>
                 <button class="btn delete">O‘chirish</button>
             </td>
         </tr>
-
-        <tr>
-            <td>2</td>
-            <td>Sardor Karimov</td>
-            <td>17</td>
-            <td>11-B</td>
-            <td>+998909876543</td>
-            <td>Samarqand</td>
-            <td>2026-04-02</td>
-            <td>
-                <button class="btn view">Ko‘rish</button>
-                <button class="btn edit">Tahrirlash</button>
-                <button class="btn delete">O‘chirish</button>
-            </td>
-        </tr>
+            <?php endforeach; ?>
     </tbody>
 </table>
 
 </body>
 </html>
-```
