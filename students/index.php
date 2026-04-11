@@ -11,6 +11,7 @@ $sql = "SELECT * FROM members ORDER BY id DESC";
 $data = $conn->prepare($sql);
 $data->execute();
 $students = $data->fetchALL();
+$cnt=1;
 ?>
 <!DOCTYPE html>
 <html lang="uz">
@@ -98,7 +99,8 @@ $students = $data->fetchALL();
     <tbody>
             <?php foreach($students as $item): ?>
         <tr>
-            <td><?= $item['id'];?></td>
+            <td><?= $cnt++
+            ?></td>
             <td><?= $item['full_name'];?></td>
             <td><?= $item['age'];?></td>
             <td><?= $item['class_name'];?></td>
@@ -108,7 +110,7 @@ $students = $data->fetchALL();
             <td>
                 <a href="#" class="view"> Ko'rish</a>
                 <a href="edit.php?id= <?= $item['id'] ?>" class ="edit"; >tahrirlash</a>
-                <a href="#" class="delete">o'chirish</a>
+                <a href="delete.php?id= <?= $item['id'] ?>" class="delete" onclick="return confirm('rostdan ham o\'chirmoqchimisiz?')" >o'chirish</a>
             </td>
         </tr>
             <?php endforeach; ?>
