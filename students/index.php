@@ -50,7 +50,7 @@ $students = $data->fetchALL();
             background: #f1f1f1;
         }
 
-        .btn {
+        .a {
             padding: 6px 10px;
             border: none;
             cursor: pointer;
@@ -72,7 +72,7 @@ $students = $data->fetchALL();
             background: #dc3545;
         }
 
-        .btn:hover {
+        .a:hover {
             opacity: 0.8;
         }
     </style>
@@ -106,9 +106,9 @@ $students = $data->fetchALL();
             <td><?= $item['adress'];?></td>
             <td><?= date("d.M.Y", strtotime($item['created_at']));?></td>
             <td>
-                <button class="btn view">Ko‘rish</button>
-                <button class="btn edit">Tahrirlash</button>
-                <button class="btn delete">O‘chirish</button>
+                <a href="#" class="view"> Ko'rish</a>
+                <a href="edit.php?id= <?= $item['id'] ?>" class ="edit"; >tahrirlash</a>
+                <a href="#" class="delete">o'chirish</a>
             </td>
         </tr>
             <?php endforeach; ?>
