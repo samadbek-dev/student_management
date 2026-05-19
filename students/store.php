@@ -6,15 +6,15 @@ if(!isset($_SESSION['user_id'])){
 }
 include '../config/db.php';
 $full_name=$_POST['full_name'];
-$age=$_POST['age'];
+$student_age=$_POST['student_age'];
 $phone=$_POST['phone'];
 $address=$_POST['address'];
-$class_name=$_POST['class_name'];
-$sql = "INSERT INTO members (full_name, age, phone, adress, class_name)
+$class_id=$_POST['class_id'];
+$sql = "INSERT INTO students (full_name, student_age, phone, adress, class_id)
 VALUES (?, ?, ?, ?, ?)";
 // SQL so'rovini tayyorlash
 $data = $conn-> prepare($sql);
-$data->execute([$full_name, $age, $phone, $address, $class_name]);
+$data->execute([$full_name, $student_age, $phone, $address, $class_id]);
 header("Location: index.php");
 exit();
 ?>

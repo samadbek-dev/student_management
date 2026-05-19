@@ -6,17 +6,24 @@ if(!isset($_SESSION['user_id'])){
     header("Location: ../auth/login.php");
     exit();
 }
-$id= $_GET['id'];
-$sql= "SELECT * FROM students WHERE id= ?";
+
+$id = $_GET['id'];
+
+$sql = "SELECT * FROM books WHERE id = ?";
 $data = $conn->prepare($sql);
-$data ->execute([$id]);
-$student = $data->fetch();
+$data->execute([$id]);
+$book = $data->fetch();
+
+if(!$book){
+    echo "Book topilmadi!";
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <title>Member Detail</title>
+    <title>Book Detail</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -47,6 +54,7 @@ $student = $data->fetch();
         .label {
             font-weight: bold;
             color: #555;
+            display: block;
         }
 
         .value {
@@ -60,32 +68,39 @@ $student = $data->fetch();
 <body>
 
 <div class="card">
-    <h2>Member Detail</h2>
+    <h2>Book Detail</h2>
 
     <div class="field">
-    <span class ="label">Ism Familiya</span>
-    <?= $student['full_name']; ?>
+        <span class="label">Title</span>
+        <div class="value"><?= $book['title']; ?></div>
     </div>
 
     <div class="field">
-    <span class ="label">Yoshi</span>
-    <?= $student['student_age']; ?>
+        <span class="label">Author</span>
+        <div class="value"><?= $book['author']; ?></div>
     </div>
 
     <div class="field">
-    <span class ="label">sinifi</span>
-    <?= $student['class_id']; ?>
+        <span class="label">Published Date</span>
+        <div class="value"><?= $book['published_date']; ?></div>
     </div>
 
     <div class="field">
-    <span class ="label">address</span>
-    <?= $student['adress']; ?>
+        <span class="label">Note</span>
+        <div class="value"><?= $book['book_note']; ?></div>
+    </div>
+
+
+    <div class="field">
+        <span class="label">Created At</span>
+        <div class="value"><?= $book['created_at']; ?></div>
     </div>
 
     <div class="field">
-    <span class ="label">yaratilgan:</span>
-    <?= $student['created_at']; ?>
+        <span class="label">Updated At</span>
+        <div class="value"><?= $book['updated_at']; ?></div>
     </div>
+
 </div>
 
 </body>

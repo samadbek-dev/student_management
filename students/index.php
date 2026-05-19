@@ -2,16 +2,19 @@
 session_start();
 require "../config/db.php";
 
+
 if(!isset($_SESSION['user_id'])){
     header("Location: ../auth/login.php");
     exit();
 }
-//sql yozish
-$sql = "SELECT * FROM members ORDER BY id DESC";
-$data = $conn->prepare($sql);
+$sql= "SELECT *
+FROM students s
+JOIN classes c ON s.class_id = c.id;";
+$data=$conn-> prepare($sql);
 $data->execute();
-$students = $data->fetchALL();
-$cnt=1;
+$students= $data->fetchALL();
+
+$cnt = 1;
 ?>
 <!DOCTYPE html>
 <html lang="uz">
@@ -89,7 +92,7 @@ $cnt=1;
             <th>#</th>
             <th>Full Name</th>
             <th>Age</th>
-            <th>Class</th>
+            <th>Class ID</th>
             <th>Phone</th>
             <th>Address</th>
             <th>Created At</th>
@@ -102,7 +105,7 @@ $cnt=1;
             <td><?= $cnt++
             ?></td>
             <td><?= $item['full_name'];?></td>
-            <td><?= $item['age'];?></td>
+            <td><?= $item['student_age'];?></td>
             <td><?= $item['class_name'];?></td>
             <td><?= $item['phone'];?></td>
             <td><?= $item['adress'];?></td>
@@ -116,6 +119,7 @@ $cnt=1;
             <?php endforeach; ?>
     </tbody>
 </table>
+            <td><a href="../dashboard.php" class="btn">Ortga</a></td>
 
 </body>
 </html>

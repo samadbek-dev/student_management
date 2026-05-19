@@ -1,14 +1,30 @@
 <?php
 session_start();
-require '../config/db.php';
+require "../config/db.php";
 
-$class = $conn->query("SELECT id, class_name FROM classes")->fetchAll();
+if(!isset($_SESSION['user_id'])){
+    header("Location: ../auth/login.php");
+    exit();
+}
+
+$id = $_GET['id'];
+
+$sql = "SELECT * FROM books WHERE id = ?";
+$data = $conn->prepare($sql);
+$data->execute([$id]);
+$book = $data->fetch();
+
+if(!$book){
+    echo "Book topilmadi!";
+    exit();
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <title>Create Student</title>
+    <title>Edit Book</title>
 
     <style>
         body {
@@ -83,39 +99,32 @@ $class = $conn->query("SELECT id, class_name FROM classes")->fetchAll();
 <body>
 
 <div class="form-container">
-    <h2>Student qo‘shish</h2>
+    <h2>Kitobni tahrirlash</h2>
 
-    <form action="store.php" method="POST">
-            
+    <form action="update.php" method="POST">
+        <input type="hidden" name="id" value="<?= $book['id'] ?>">
+
         <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" name="full_name" required>
+            <label>Title</label>
+            <input type="text" name="title" value="<?= $book['title'] ?>" required>
         </div>
 
         <div class="form-group">
-            <label>Age</label>
-            <input type="number" name="student_age">
-        </div>
-
-    <select name="class_id" required>
-        <option value="" >Select class</option>
-        <?php foreach ($class as $c): ?>
-            <option value="<?= $c['id'] ?>" ><?= $c['class_name'] ?></option>
-        <?php endforeach; ?>
-
-    </select>
-
-        <div class="form-group">
-            <label>Phone</label>
-            <input type="text" name="phone">
+            <label>Author</label>
+            <input type="text" name="author" value="<?= $book['author'] ?>" required>
         </div>
 
         <div class="form-group">
-            <label>Address</label>
-            <textarea name="address"></textarea>
+            <label>Published Date</label>
+            <input type="date" name="published_date" value="<?= $book['published_date'] ?>">
         </div>
 
-        <button type="submit" class="btn submit" >Saqlash</button>
+        <div class="form-group">
+            <label>Book Note</label>
+            <textarea name="book_note"><?= $book['book_note'] ?></textarea>
+        </div>
+
+        <button type="submit" class="btn submit" onclick="goBack()">Saqlash</button>
     </form>
 
     <button class="btn back" onclick="goBack()">Orqaga</button>
@@ -129,4 +138,3 @@ function goBack() {
 
 </body>
 </html>
-

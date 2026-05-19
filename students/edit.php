@@ -7,7 +7,7 @@ if(!isset($_SESSION['user_id'])){
     exit();
 }
 $id= $_GET['id'];
-$sql = "SELECT * FROM members WHERE id = ?";
+$sql = "SELECT * FROM students WHERE id = ?";
 $data = $conn->prepare($sql);
 $data->execute([$id]);
 $student = $data->fetch();
@@ -27,7 +27,7 @@ if(!$student){
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f4f6f9;
+            background: #f4f6f9;    
             display: flex;
             justify-content: center;
             align-items: center;
@@ -108,12 +108,12 @@ if(!$student){
 
         <div class="form-group">
             <label>Age</label>
-            <input type="number" name="age" value="<?= $student['age'] ?>">
+            <input type="number" name="age" value="<?= $student['student_age'] ?>">
         </div>
 
         <div class="form-group">
             <label>Class</label>
-            <input type="text" name="class_name" value="<?= $student['class_name'] ?>">
+            <input type="text" name="class_name" value="<?= $student['class_id'] ?>">
         </div>
 
         <div class="form-group">

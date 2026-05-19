@@ -1,14 +1,28 @@
 <?php
 session_start();
-require '../config/db.php';
+require "../config/db.php";
 
-$class = $conn->query("SELECT id, class_name FROM classes")->fetchAll();
+if(!isset($_SESSION['user_id'])){
+    header("Location: ../auth/login.php");
+    exit();
+}
+$id= $_GET['id'];
+$sql = "SELECT * FROM teachers WHERE id = ?";
+$data = $conn->prepare($sql);
+$data->execute([$id]);
+$teacher = $data->fetch();
+
+if(!$teacher){
+    echo "Teacher topilmadi!";
+    exit();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <title>Create Student</title>
+    <title>Create Teacher</title>
 
     <style>
         body {
@@ -83,38 +97,42 @@ $class = $conn->query("SELECT id, class_name FROM classes")->fetchAll();
 <body>
 
 <div class="form-container">
-    <h2>Student qo‘shish</h2>
+    <h2>Teacher add</h2>
 
-    <form action="store.php" method="POST">
-            
+    <form action="update.php" method="POST">
+            <input type="hidden" name="id" value="<?= $teacher['id'] ?>">
         <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" name="full_name" required>
+            <label>First name</label>
+            <input type="text" name="first_name" value="<?= $teacher['full_name'] ?>" required>
         </div>
-
         <div class="form-group">
-            <label>Age</label>
-            <input type="number" name="student_age">
+            <label>Last name</label>
+            <input type="text" name="last_name" value="<?= $teacher['last_name'] ?>" required>
         </div>
-
-    <select name="class_id" required>
-        <option value="" >Select class</option>
-        <?php foreach ($class as $c): ?>
-            <option value="<?= $c['id'] ?>" ><?= $c['class_name'] ?></option>
-        <?php endforeach; ?>
-
-    </select>
-
         <div class="form-group">
-            <label>Phone</label>
-            <input type="text" name="phone">
+            <label>age</label>
+            <input type="text" name="age" value="<?= $teacher['age'] ?>" required>
         </div>
-
         <div class="form-group">
-            <label>Address</label>
-            <textarea name="address"></textarea>
+            <label>subject</label>
+            <input type="text" name="subject" value="<?= $teacher['subject'] ?>" required>
         </div>
-
+        <div class="form-group">
+            <label>experience</label>
+            <input type="text" name="experience" value="<?= $teacher['experience'] ?>" required>
+        </div>
+        <div class="form-group">
+            <label>phone</label>
+            <input type="text" name="phone" value="<?= $teacher['phone'] ?>" required>
+        </div>
+        <div class="form-group">
+            <label>created_at</label>
+            <input type="text" name="created_at" value="<?= $teacher['created_at'] ?>" required>
+        </div>
+<div class="form-group">
+            <label>Updated_at</label>
+            <input type="text" name="updated_at" value="<?= $teacher['updated_at'] ?>" required>
+        </div>
         <button type="submit" class="btn submit" >Saqlash</button>
     </form>
 

@@ -7,16 +7,16 @@ if(!isset($_SESSION['user_id'])){
     exit();
 }
 $id= $_GET['id'];
-$sql= "SELECT * FROM students WHERE id= ?";
+$sql= "SELECT * FROM teachers WHERE id= ?";
 $data = $conn->prepare($sql);
 $data ->execute([$id]);
-$student = $data->fetch();
+$teacher = $data->fetch();
 ?>
 <!DOCTYPE html>
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <title>Member Detail</title>
+    <title>teacher Detail</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -61,30 +61,33 @@ $student = $data->fetch();
 
 <div class="card">
     <h2>Member Detail</h2>
-
     <div class="field">
-    <span class ="label">Ism Familiya</span>
-    <?= $student['full_name']; ?>
+    <span class ="label"> Ism</span>
+    <?= $teacher['first_name']; ?>
     </div>
-
-    <div class="field">
-    <span class ="label">Yoshi</span>
-    <?= $student['student_age']; ?>
+        <div class="field">
+    <span class ="label">Familiya</span>
+    <?= $teacher['last_name']; ?>
     </div>
-
-    <div class="field">
-    <span class ="label">sinifi</span>
-    <?= $student['class_id']; ?>
+        <div class="field">
+    <span class ="label">yosh</span>
+    <?= $teacher['age']; ?>
     </div>
-
-    <div class="field">
-    <span class ="label">address</span>
-    <?= $student['adress']; ?>
+        <div class="field">
+    <span class ="label">subject</span>
+    <?= $teacher['subject']; ?>
     </div>
-
-    <div class="field">
-    <span class ="label">yaratilgan:</span>
-    <?= $student['created_at']; ?>
+        <div class="field">
+    <span class ="label">experience</span>
+    <?= $teacher['experience']; ?>
+    </div>
+        <div class="field">
+    <span class ="label">created_at</span>
+    <?= $teacher['created_at']; ?>
+    </div>
+        <div class="field">
+    <span class ="label">updated_at</span>
+    <?= $teacher['updated_at']; ?>
     </div>
 </div>
 

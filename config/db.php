@@ -8,6 +8,6 @@ try{
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 //xatolikni ko'rsatish
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    } catch(PDOExeption $e){
+    } catch(PDOException $e){
     die("Xatolik: ". $e->getMessage());
 }

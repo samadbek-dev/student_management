@@ -8,7 +8,7 @@ if(!isset($_SESSION['user_id'])){
 }
 $id=$_GET['id'];
 //xavfsizlik uchun oldin  tekshiramiz
-$sql="SELECT * FROM students WHERE id= ?";
+$sql="SELECT * FROM books WHERE id= ?";
 $data = $conn->prepare($sql);
 $data->execute([$id]);
 $student = $data->fetch();
@@ -18,7 +18,7 @@ if(!$student){
     exit();
 }
 //o'chirish
-$sql = "DELETE FROM  members WHERE id = ?";
+$sql = "DELETE FROM  books WHERE id = ?";
 $data = $conn->prepare($sql);
 $data-> execute([$id]);
 
