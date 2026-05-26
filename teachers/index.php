@@ -46,7 +46,7 @@ $cnt = 1;
         }
 
         thead {
-            background-color: #28a745;
+            background-color: #b2b63cc9;
             color: white;
         }
 
@@ -78,10 +78,69 @@ $cnt = 1;
 
         .a:hover {
             opacity: 0.8;
-}
+        }
+        .navbar{
+        width:100%;
+        background:linear-gradient(135deg, #1e293b, #334155);
+        padding:14px 40px;
+        box-shadow:0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .nav-container{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        max-width:1200px;
+        margin:auto;
+    }
+
+    .logo{
+        color:white;
+        font-size:24px;
+        font-weight:bold;
+        letter-spacing:1px;
+    }
+
+    .nav-links{
+        list-style:none;
+        display:flex;
+        gap:18px;
+    }
+
+    .nav-links li a{
+        text-decoration:none;
+        color:white;
+        padding:10px 18px;
+        border-radius:8px;
+        transition:0.3s ease;
+        font-size:15px;
+        font-weight:500;
+    }
+
+    .nav-links li a:hover{
+        background:#3b82f6;
+        transform:translateY(-2px);
+    }
+
+    .nav-links li a.active{
+        background:#2563eb;
+    }
     </style>
 </head>
 <body>
+<header class="navbar">
+    <div class="nav-container">
+        <div class="logo">Menu</div>
+
+        <ul class="nav-links">
+            <li><a href="../classes/index.php">Classes</a></li>
+            <li><a href="../teachers/index.php">Teachers</a></li>
+            <li><a href="../students/index.php">Students</a></li>
+            <li><a href="../books/index.php">Books</a></li>
+            <li><a href="../orders/index.php">Orders</a></li>
+        </ul>
+    </div>
+</header>
 
 <div class="container">
     <h2>Teachers List</h2>

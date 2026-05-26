@@ -66,6 +66,7 @@ if(!$book){
     </style>
 </head>
 <body>
+    
 
 <div class="card">
     <h2>Book Detail</h2>
